@@ -118,7 +118,21 @@ int find_builtins(item_t *);
 void find_prompt(item_t *);
 void fork_prompt(item_t *);
 
-/* parse cmd in parser.c */
+/* parse cmd for execution and PATH */
 int cmd_exe(item_t *, char *);
 char *double_chars(char *, int, int);
 char *cmd_path(item_t *, char *, char *);
+
+/* file string01 */
+void _puts(char *);
+int _putchar(char);
+
+/* errors to print to stderr */
+int _fputchar(char c);
+void _efputs(char *);
+/* The asciitoi.c */
+int terminal(item_t *);
+
+/* file getuserinfo.c */
+void clear_params(item_t *);
+#endif
