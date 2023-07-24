@@ -42,7 +42,7 @@ void _efputs(char *str)
 }
 
 /**
- * my_buffd - function that is used for buffered 
+ * my_buffd - function that is used for buffered
  * output to a file descriptor.
  * @fd: The filedescriptor
  * @c: The character output

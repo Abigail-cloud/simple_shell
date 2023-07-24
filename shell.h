@@ -83,7 +83,7 @@ typedef struct iteminfo
 	unsigned int line_count;
 	int err_num;
 	int count_flag;
-	char filename;
+	char *filename;
 	list_t *env;
 	list_t *history;
 	char **environ;
