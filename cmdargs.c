@@ -24,12 +24,12 @@ int hsh_loop(item_t *params, char **av)
 			set_info(params, av);
 			const_builtin = find_builtins
 				(params);
-			if (find_builtin == -1)
+			if (find_builtins == -1)
 				find_command(params);
 		}
 		else if (terminal(params))
 			_putchar('\n');
-		free_info(info, 0);
+		free_item(params, 0);
 	}
 	write_history(params);
 	free_info(params, 1);
@@ -97,7 +97,7 @@ void find_prompt(item_t *params)
 	if (!j)
 		return;
 
-	path = get_path((param, get_env(params,  "PATH="), params->argv[0]);
+	path = get_path((params, get_env(params,  "PATH="), params->argv[0]);
 			if (path)
 			{
 			params->path = path;

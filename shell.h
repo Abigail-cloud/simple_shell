@@ -93,7 +93,6 @@ typedef struct iteminfo
 	int readdir;
 	char **cmd_buffer;
 	int cmd_buffer_type;
-	int cmd_buffer_type;
 	int hiscount;
 } item_t;
 
@@ -123,16 +122,111 @@ int cmd_exe(item_t *, char *);
 char *double_chars(char *, int, int);
 char *cmd_path(item_t *, char *, char *);
 
-/* file string01 */
+/* file string01 string007.c*/
 void _puts(char *);
 int _putchar(char);
+char *my_strcpy(char *, char *);
+char *my_strdup(const char *);
 
-/* errors to print to stderr */
+int my_strlen(char *);
+int my_strcmp(char *, char *);
+char *my_starts_with(const char *, const char *);
+char *my_strcat(char *, char *);
+
+/* errors to print to stderr, file descriptor buffer */
 int _fputchar(char c);
 void _efputs(char *);
+int my_buffd(char c, int fd);
+int my_puts(char *str, int fd);
+
+int _erratoi(char *);
+void print_error(item_t *, char *);
+int print_d(int, int);
+char *convert_number(long int, int, int);
+void remove_comments(char *);
+
 /* The asciitoi.c */
 int terminal(item_t *);
+int is_delim(char, char *);
+int _isalpha(int);
+int _atoi(char *);
+
+
+/* ohexits.c */
+char *exits_strncpy(char *, char *, int);
+char *exit_strncat(char *, char *, int);
+char *exit_strchr(char *, char);
+
+/* ontoken.c */
+char **strtow(char *, char *);
+char **on_strtow(char *, char);
+
+/* myrealloc.c  osmemory.c  allocation*/
+char *my_memset(char *, char, unsigned int);
+void my_ffree(char **);
+void *my_realloc(void *, unsigned int, unsigned int);
+
+int osfree(void **);
 
 /* file getuserinfo.c */
 void clear_params(item_t *);
+void set_params(item_t *, char **);
+void free_params(item_t *, int);
+
+
+/* mybuiltin.c */
+int my_exit(item_t *);
+int my_cd(item_t *);
+int my_help(item_t *);
+
+/* fillbuiltin01.c */
+int my_history(item_t *);
+int my_alias(item_t *);
+
+/*getonline.c */
+ssize_t get_sh_input(item_t *);
+int get_sh_line(item_t *, char **, size_t *);
+void get_intHandler(int);
+
+
+/* The shell linked lists functions list01.c*/
+list_t *add_new_node(list_t **, const char *, int);
+list_t *add_last_node(list_t **, const char *, int);
+size_t log_list_str(const list_t *);
+int delete_node_position(list_t **, unsigned int);
+void free_dlist(list_t **);
+
+/* Data structure linked list contds list02.c */
+size_t list_length(const list_t *);
+char **list_str(list_t *);
+size_t log_all_list(const list_t *);
+list_t *list_starts_with(list_t *, char *, char);
+ssize_t print_node_pos(list_t *, list_t *);
+
+/* variables vars vary.c */
+int get_chain(item_t *, char *, size_t *);
+void prompt_chain(item_t *, char *, size_t *, size_t, size_t);
+int swap_alias(item_t *);
+int swap_vars(item_t *);
+int swap_string(char **, char *);
+
+
+/* shell  environment.c */
+char *get_env(item_t *, const char *);
+int sh_env(item_t *);
+int sh_setenv(item_t *);
+int sh_unsetenv(item_t *);
+int popsh_env_list(item_t *);
+
+/* shell environment   fetchenv.c */
+char **fetch_environ(item_t *);
+int my_unsetenv(item_t *, char *);
+int sh_my_setenv(item_t *, char *, char *);
+
+/* shell shhistory.c */
+char *get_hist_file(item_t *params);
+int copy_hist(item_t *params);
+int read_hist(item_t *params);
+int create_hist_list(item_t *params, char *buffer, int line_count);
+int shuffle_hist(item_t *params);
 #endif

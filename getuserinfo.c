@@ -6,10 +6,10 @@
  *
  */
 
-void clear_params(info_t *params)
+void clear_params(item_t *params)
 {
 	params->arg = NULL;
 	params->argv = NULL;
 	params->path = NULL;
-	params->argc 0;
+	params->argc =  0;
 }
