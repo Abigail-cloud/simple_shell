@@ -1,75 +1,94 @@
 #include "shell.h"
 
 /**
- * terminal - returns true if terminal is in interactive mode
- * @params: struct address
- *
- * Return: 1
- */ 
-int terminal (item_t *params)
-{
-	return (isatty(STDIN_FILENO) && params->readdir <= 2);
-}
-
-/**
- * is_delim - checks if the char is a delimeter
- * @delim: the delimeter string
- * @c: the char
+ * check_delim - Checking of a character matching
+ * char*
+ * @c: The character
+ * @str: String
  *
  * Return: 1
  */
-int is_delim(char c, char *delim)
+unsigned int check_delim(char c, const char *str)
 {
-	while (*delim)
-		if (*delim++ == c)
+	unsigned int i;
+
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if (c == str[i])
 			return (1);
+	}
 	return (0);
 }
 
 /**
- * is_alpha - see if char is alphabet
- * @c: The character
- *
- * Return: 1
+ * _ascitoi - convert ascii to a int
+ * @s:string
+ * Return: integer
  */
-int is_alpha(int c)
+int _ascitoi(char *s)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	else
-		return (0);
+	int i, j, n, x;
+
+	i = n = 0;
+	x = 1;
+	while ((s[i] < '0' || s[i] > '9') && (s[i] != '\0'))
+	{
+		if (s[i] == '-')
+			x *= -1;
+		i++;
+	}
+	j = i;
+	while ((s[j] >= '0') && (s[j] <= '9'))
+	{
+		n = (n * 10) + x * ((s[j]) - '0');
+		j++;
+	}
+	return (n);
 }
 
 /**
- * astoi - converts ACII to an integer
- * @s: the string
+ * _strtok - A string token
+ * @item: Delimiter
+ * @str: String
  *
- * Return: string
+ * Return: Next token
  */
-int astoi(char *s)
+char *_strtok(char *str, const char *item)
 {
-	int i, sign = 1, flag = 0, out;
-	unsigned int response = 0;
+	static char *token;
+	static char *next_token;
+	unsigned int i;
 
-	for (i = 0;  s[i] != '\0' && flag != 2; i++)
+	if (str != NULL)
+		next_token = str;
+	token = next_token;
+	if (token == NULL)
+		return (NULL);
+	for (i = 0; token[i] != '\0'; i++)
 	{
-		if (s[i] == '-')
-			sign *= -1;
-
-		if (s[i] >= '0' && s[i] <= '9')
-		{
-			flag = 1;
-			response *= 10;
-			response += (s[i] - '0');
-		}
-		else if (flag == 1)
-			flag = 2;
+		if (check_delim(token[i], item) == 0)
+			break;
 	}
-
-	if (sign == -1)
-		out = -response;
+	if (next_token[i] == '\0' || next_token[i] == '#')
+	{
+		next_token = NULL;
+		return (NULL);
+	}
+	token = next_token + i;
+	next_token = token;
+	for (i = 0; next_token[i] != '\0'; i++)
+	{
+		if (check_delim(next_token[i], item) == 1)
+			break;
+	}
+	if (next_token[i] == '\0')
+		next_token = NULL;
 	else
-		out = response;
-
-	return (out);
+	{
+		next_token[i] = '\0';
+		next_token = next_token + i + 1;
+		if (*next_token == '\0')
+			next_token = NULL;
+	}
+	return (token);
 }
